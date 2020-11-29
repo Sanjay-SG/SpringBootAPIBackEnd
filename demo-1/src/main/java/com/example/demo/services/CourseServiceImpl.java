@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,6 +49,26 @@ public class CourseServiceImpl implements CourseService {
 		// TODO Auto-generated method stub
 		list.add(course);
 		return course;
+	}
+	@Override
+	public Course updateCourse(Course course) {
+		// TODO Auto-generated method stub
+		list.forEach(e ->
+		{
+			if(e.getId() == course.getId())
+			{
+				e.setId(course.getId());
+				e.setTitle(course.getTitle());
+				e.setDescription(course.getDescription());
+			}
+		});
+		return course;
+	}
+	@Override
+	public void deleteCourse(long courseId) {
+		// TODO Auto-generated method stub
+		list = this.list.stream().filter(e -> e.getId() != courseId).collect(Collectors.toList());
+		
 	}
 	
 	
